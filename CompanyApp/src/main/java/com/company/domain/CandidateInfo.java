@@ -1,18 +1,34 @@
 package com.company.domain;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
+import org.springframework.context.annotation.Description;
+
 import com.sun.istack.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="candidate")
+@Data
 public class CandidateInfo {
   
 	@Id
@@ -35,43 +51,10 @@ public class CandidateInfo {
 	@Size(min=10,max=11)
 	private String mobNo;
 	
-	public long getcId() {
-		return cId;
-	}
-	public void setcId(long cId) {
-		this.cId = cId;
-	}
-	public String getcName() {
-		return cName;
-	}
-	public void setcName(String cName) {
-		this.cName = cName;
-	}
-	public String getSkillSet() {
-		return skillSet;
-	}
-	public void setSkillSet(String skillSet) {
-		this.skillSet = skillSet;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getMobNo() {
-		return mobNo;
-	}
-	public void setMobNo(String mobNo) {
-		this.mobNo = mobNo;
-	}
+	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name="CANDIDATE_ID")
+    public List<CompanyAddress> addressList = new LinkedList<CompanyAddress>();
 	
-	
+		
 	
 }
